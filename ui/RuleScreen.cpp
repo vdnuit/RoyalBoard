@@ -6,6 +6,7 @@
 namespace ui {
 
     void showRuleScreen() {
+        clearConsole();
         printTitle("체스 게임 규칙");
 
         std::cout << R"(■ 기본 사항

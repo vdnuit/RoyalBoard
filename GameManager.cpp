@@ -1,6 +1,7 @@
 // GameManager.cpp
 #include "GameManager.h"
 #include <iostream>
+#include "ui/RuleScreen.h"
 
 GameManager::GameManager()
     : whitePlayer(Color::WHITE), blackPlayer(Color::BLACK), currentPlayer(&whitePlayer) {
@@ -21,8 +22,26 @@ void GameManager::start() {
             continue;
         }
 
-        Position from = Position::fromString(fromStr);
-        Position to = Position::fromString(toStr);
+        // 명령어 입력 처리: "0", "1", "2"
+        if (fromStr == "0") {
+            return; // 메인 화면으로 복귀
+        } else if (fromStr == "1") {
+            ui::showRuleScreen();
+            continue;
+        } else if (fromStr == "2") {
+            std::cout << "\n게임을 종료합니다.\n";
+            exit(0);
+        }
+
+        // 정상적인 위치 입력 처리
+        Position from, to;
+        try {
+            from = Position::fromString(fromStr);
+            to = Position::fromString(toStr);
+        } catch (const std::exception& e) {
+            std::cout << "좌표 형식이 올바르지 않습니다. 다시 시도하세요.\n";
+            continue;
+        }
 
         if (!rules::isValidMove(board, from, to, currentPlayer->getColor())) {
             std::cout << "잘못된 수입니다. 다시 시도하세요.\n";

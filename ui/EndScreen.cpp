@@ -6,6 +6,7 @@
 namespace ui {
 
     void showEndScreen(Color winner) {
+        clearConsole();
         printTitle("게임 종료");
 
         std::string name = (winner == Color::WHITE) ? "백(White)" : "흑(Black)";

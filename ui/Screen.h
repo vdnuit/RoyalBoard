@@ -6,6 +6,8 @@
 
 namespace ui {
 
+    void clearConsole();
+    
     // 출력용 구분선
     void printLine(int width = 39, char fill = '-');
 

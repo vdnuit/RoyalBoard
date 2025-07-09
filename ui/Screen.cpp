@@ -2,9 +2,17 @@
 #include "Screen.h"
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
+
 
 namespace ui {
-
+    void clearConsole() {
+        #ifdef _WIN32
+            std::system("cls");
+        #else
+            std::system("clear");
+        #endif
+    }
     void printLine(int width, char fill) {
         std::cout << "  +" << std::string(width, fill) << "+\n";
     }

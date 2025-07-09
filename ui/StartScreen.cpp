@@ -6,6 +6,7 @@
 namespace ui {
 
     int showStartScreen() {
+        clearConsole();
         printTitle("Royal Board");
         printCentered("[1] 게임 시작");
         printCentered("[2] 게임 규칙 보기");
