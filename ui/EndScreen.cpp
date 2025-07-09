@@ -1,4 +1,3 @@
-// ui/EndScreen.cpp
 #include "EndScreen.h"
 #include "Screen.h"
 #include <iostream>
@@ -10,9 +9,8 @@ namespace ui {
         printTitle("게임 종료");
 
         std::string name = (winner == Color::WHITE) ? "백(White)" : "흑(Black)";
-        std::string icon = (winner == Color::WHITE) ? "♛" : "♚";
+        printCentered(name + "이 이겼습니다!");
 
-        printCentered(icon + "  " + name + "이 이겼습니다!  " + icon);
         std::cout << "\n  체크메이트로 게임이 종료되었습니다.\n";
         printLine();
 
@@ -20,7 +18,16 @@ namespace ui {
         printCentered("[2] 종료");
         printLine();
 
-        printPrompt("번호를 입력하세요: ");
+        printPrompt("번호를 입력하세요: ");int choice;
+        std::cin >> choice;
+        std::cin.ignore();
+
+        if (choice == 1) {
+        } else if (choice == 2) {
+            std::cout << "게임을 종료합니다.\n";
+            exit(0);
+        }
+
     }
 
 }

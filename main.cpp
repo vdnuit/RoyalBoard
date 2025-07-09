@@ -4,9 +4,11 @@
 #include "ui/RuleScreen.h"
 #include "ui/EndScreen.h"
 #include "GameManager.h"
+#include <windows.h>
 
 int main() {
-    setlocale(LC_ALL, "ko_KR.UTF-8");
+    SetConsoleOutputCP(CP_UTF8);
+    
     while (true) {
         int choice = ui::showStartScreen();
 
