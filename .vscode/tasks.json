@@ -13,6 +13,7 @@
         "Board.cpp",
         "Player.cpp",
         "utils/Position.cpp",
+        "utils/GameFlow.cpp",
         "pieces/Pawn.cpp",
         "pieces/Knight.cpp",
         "pieces/Bishop.cpp",

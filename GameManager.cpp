@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include <iostream>
 #include "ui/RuleScreen.h"
+#include "utils/GameFlow.h"
 
 GameManager::GameManager()
     : whitePlayer(Color::WHITE), blackPlayer(Color::BLACK), currentPlayer(&whitePlayer) {
@@ -19,12 +20,12 @@ void GameManager::start() {
         std::string fromStr, toStr;
         if (!ui::getMoveInput(fromStr, toStr)) {
             std::cout << "입력이 잘못되었습니다. 다시 시도하세요.\n";
+            utils::waitAndContinue();
             continue;
         }
 
-        // 명령어 입력 처리: "0", "1", "2"
         if (fromStr == "0") {
-            return; // 메인 화면으로 복귀
+            return;
         } else if (fromStr == "1") {
             ui::showRuleScreen();
             continue;
@@ -33,18 +34,19 @@ void GameManager::start() {
             exit(0);
         }
 
-        // 정상적인 위치 입력 처리
         Position from, to;
         try {
             from = Position::fromString(fromStr);
             to = Position::fromString(toStr);
         } catch (const std::exception& e) {
             std::cout << "좌표 형식이 올바르지 않습니다. 다시 시도하세요.\n";
+            utils::waitAndContinue();
             continue;
         }
 
         if (!rules::isValidMove(board, from, to, currentPlayer->getColor())) {
             std::cout << "잘못된 수입니다. 다시 시도하세요.\n";
+            utils::waitAndContinue();
             continue;
         }
 
@@ -59,12 +61,14 @@ void GameManager::start() {
         if (++turnCount >= 80) {
             ui::renderBoard(board);
             std::cout << "\n80턴이 지나 무승부입니다.\n";
+            utils::waitAndContinue();
             break;
         }
 
         switchTurn();
     }
 }
+
 
 void GameManager::switchTurn() {
     currentPlayer = (currentPlayer == &whitePlayer) ? &blackPlayer : &whitePlayer;
