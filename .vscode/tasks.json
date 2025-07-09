@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Chess Project",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-std=c++17",
+        "-g",
+        "main.cpp",
+        "GameManager.cpp",
+        "Board.cpp",
+        "Player.cpp",
+        "utils/Position.cpp",
+        "pieces/Pawn.cpp",
+        "pieces/Knight.cpp",
+        "pieces/Bishop.cpp",
+        "pieces/Rook.cpp",
+        "pieces/Queen.cpp",
+        "pieces/King.cpp",
+        "rules/MoveValidator.cpp",
+        "rules/CheckDetector.cpp",
+        "rules/CheckmateDetector.cpp",
+        "rules/TurnController.cpp",
+        "ui/Screen.cpp",
+        "ui/StartScreen.cpp",
+        "ui/RuleScreen.cpp",
+        "ui/GameScreen.cpp",
+        "ui/EndScreen.cpp",
+        "ui/InputHandler.cpp",
+        "-o",
+        "chess_game.exe"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "detail": "빌드: RoyalBoard 체스 콘솔 게임"
+    }
+  ]
+}
