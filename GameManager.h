@@ -23,6 +23,7 @@ private:
     Player blackPlayer;
     Player* currentPlayer;
 
+    int turnCount;
     void switchTurn();
     void handleTurn();
 };

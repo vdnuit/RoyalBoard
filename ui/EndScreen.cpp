@@ -11,7 +11,7 @@ namespace ui {
         std::string name = (winner == Color::WHITE) ? "백(White)" : "흑(Black)";
         printCentered(name + "이 이겼습니다!");
 
-        std::cout << "\n  체크메이트로 게임이 종료되었습니다.\n";
+        printCentered("체크메이트로 게임이 종료되었습니다.");
         printLine();
 
         printCentered("[1] 처음으로 돌아가기");

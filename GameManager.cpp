@@ -14,7 +14,9 @@ void GameManager::start() {
 
     while (true) {
         ui::renderBoard(board);
-        std::cout << (currentPlayer->getColor() == Color::WHITE ? "백" : "흑") << "의 차례입니다.\n";
+        int fullTurn = (turnCount / 2) + 1;
+
+        std::cout << fullTurn << "번째 턴 - " << (currentPlayer->getColor() == Color::WHITE ? "백" : "흑") << "의 차례입니다.\n";
         std::cout << "다음 수를 입력하세요. (예: e2 e4)\n";
 
         std::string fromStr, toStr;
