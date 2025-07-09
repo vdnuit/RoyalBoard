@@ -1,4 +1,3 @@
-// GameManager.h
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
@@ -15,7 +14,11 @@
 class GameManager {
 public:
     GameManager();
+    GameManager(const Board& loadedBoard, Color currentColor, int turnCount);  // 저장된 게임 불러오기
     void start();
+
+    Board& getBoard();
+    Color& getCurrentColor();
 
 private:
     Board board;
@@ -24,6 +27,8 @@ private:
     Player* currentPlayer;
 
     int turnCount;
+    bool loadedFromSave = false;
+
     void switchTurn();
     void handleTurn();
 };

@@ -1,16 +1,27 @@
 // GameManager.cpp
 #include "GameManager.h"
 #include <iostream>
+#include <cstdio>
 #include "ui/RuleScreen.h"
 #include "utils/GameFlow.h"
+#include "utils/SaveLoadManager.h"
 
 GameManager::GameManager()
-    : whitePlayer(Color::WHITE), blackPlayer(Color::BLACK), currentPlayer(&whitePlayer) {
+    : whitePlayer(Color::WHITE), blackPlayer(Color::BLACK), currentPlayer(&whitePlayer),turnCount(0) {
     board.initialize();
 }
 
+// 불러오기용
+GameManager::GameManager(const Board& loadedBoard, Color currentColor, int turnCount)
+    : board(loadedBoard),
+      whitePlayer(Color::WHITE),
+      blackPlayer(Color::BLACK),
+      currentPlayer(currentColor == Color::WHITE ? &whitePlayer : &blackPlayer),
+      loadedFromSave(true),
+      turnCount(turnCount) {}
+
 void GameManager::start() {
-    int turnCount = 0;
+    // int turnCount = 0;
 
     while (true) {
         ui::renderBoard(board);
@@ -32,7 +43,16 @@ void GameManager::start() {
             ui::showRuleScreen();
             continue;
         } else if (fromStr == "2") {
-            std::cout << "\n게임을 종료합니다.\n";
+            std::cout << "\n게임을 저장하고 종료하시겠습니까? (y/n): ";
+            char saveChoice;
+            std::cin >> saveChoice;
+            if (saveChoice == 'y' || saveChoice == 'Y') {
+                
+                if (utils::SaveLoadManager::saveGame(board, currentPlayer->getColor(), turnCount,"save.txt")) {
+                    std::cout << "게임이 저장되었습니다.\n";
+                }
+            }
+            std::cout << "게임을 종료합니다.\n";
             exit(0);
         }
 
@@ -57,6 +77,9 @@ void GameManager::start() {
         if (rules::isCheckmate(board, currentPlayer->getOpponentColor())) {
             ui::renderBoard(board);
             ui::showEndScreen(currentPlayer->getColor());
+            if (loadedFromSave) {
+                std::remove("save.txt");
+            }
             break;
         }
 
@@ -64,6 +87,9 @@ void GameManager::start() {
             ui::renderBoard(board);
             std::cout << "\n80턴이 지나 무승부입니다.\n";
             utils::waitAndContinue();
+            if (loadedFromSave) {
+                std::remove("save.txt");
+            }
             break;
         }
 
